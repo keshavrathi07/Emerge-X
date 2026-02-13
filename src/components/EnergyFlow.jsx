@@ -16,37 +16,33 @@ function EnergyFlow({ data }) {
 
     return (
         <div className="glass-card p-6">
-            <div className="grid grid-cols-2 gap-4">
-                {/* Solar Flow */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                {/* Generation Sources */}
                 <FlowItem
                     icon="☀️"
-                    title="Solar"
+                    title="Solar AI"
                     value={`${data.predicted_solar.toFixed(1)} kW`}
-                    direction="→"
+                    direction="↓"
                 />
-
-                {/* Wind Flow */}
                 <FlowItem
                     icon="💨"
-                    title="Wind"
+                    title="Wind AI"
                     value={`${data.predicted_wind.toFixed(1)} kW`}
-                    direction="→"
+                    direction="↓"
                 />
 
-                {/* Grid Import */}
+                {/* Grid Interactions */}
                 <FlowItem
                     icon="🔌"
                     title="Grid Import"
                     value={`${data.grid_import.toFixed(1)} kW`}
-                    direction="←"
+                    direction={data.grid_import > 0 ? "↓" : "—"}
                 />
-
-                {/* Grid Export */}
                 <FlowItem
                     icon="⚡"
                     title="Grid Export"
                     value={`${data.grid_export.toFixed(1)} kW`}
-                    direction="→"
+                    direction={data.grid_export > 0 ? "↑" : "—"}
                 />
             </div>
 

@@ -34,6 +34,25 @@ function StatisticsView({ predictionData, weatherData }) {
                     </div>
                 </div>
 
+                {/* Dynamic Insights Section */}
+                <div className="glass-panel-accent p-6 mb-6 border-l-4 border-emerald-500">
+                    <h3 className="text-emerald-400 font-bold text-sm uppercase tracking-wider mb-2">AI Insights</h3>
+                    <p className="text-gray-200">
+                        {(() => {
+                            const solarEff = weatherData?.solar_radiance > 0 ? (predictionData.predicted_solar / weatherData.solar_radiance).toFixed(2) : 0;
+                            const windEff = weatherData?.wind_speed > 0 ? (predictionData.predicted_wind / (Math.pow(weatherData.wind_speed, 3))).toFixed(4) : 0;
+
+                            if (predictionData.predicted_solar > predictionData.predicted_wind) {
+                                return `Solar generation is dominant today. With an irradiance of ${weatherData?.solar_radiance} W/m², your arrays are performing optimally.`;
+                            } else if (predictionData.predicted_wind > 10) {
+                                return `High wind speeds of ${weatherData?.wind_speed} kph are driving significant turbine output, compensating for ${predictionData.predicted_solar > 0 ? 'partial solar' : 'nighttime'} conditions.`;
+                            } else {
+                                return `Low renewable generation detected. The system is relying on the grid for ${predictionData.grid_import.toFixed(1)} kW to meet the village demand.`;
+                            }
+                        })()}
+                    </p>
+                </div>
+
                 {/* Weather Summary */}
                 <div className="glass-card-dark p-6 mb-6">
                     <h3 className="text-gray-300 font-medium mb-4">Weather Summary</h3>
@@ -45,8 +64,8 @@ function StatisticsView({ predictionData, weatherData }) {
                         </div>
                         <div>
                             <span className="block text-2xl mb-1">💨</span>
-                            <span className="text-xl font-bold block">{weatherData?.wind_speed || '--'} m/s</span>
-                            <span className="text-xs text-gray-500">Wind Speed</span>
+                            <span className="text-xl font-bold block">{weatherData?.wind_speed || '--'} kph</span>
+                            <span className="text-xs text-gray-500">Wind Speed (kph)</span>
                         </div>
                         <div>
                             <span className="block text-2xl mb-1">💧</span>

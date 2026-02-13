@@ -44,21 +44,29 @@ def fetch_weather_data(city: str) -> dict:
         # Get current time for time-based features
         now = datetime.now()
         
+        # Calculate solar irradiance (logic moved outside dict)
+        uv_index = current.get("uv", 0.0)
+        cloud_cover = current.get("cloud", 0)
+        
+        # Use UV index if available, otherwise 0.0 (removed all physics fallbacks)
+        solar_irradiance = uv_index * 100 if uv_index > 0 else 0.0
+        
         # Build weather data dictionary
         weather_data = {
             # Weather features from API
             "temperature": current.get("temp_c", 0.0),
             "wind_speed": current.get("wind_kph", 0.0),
             "humidity": current.get("humidity", 0.0),
+            "cloud": cloud_cover,
             "atmospheric_pressure": current.get("pressure_mb", 0.0),
             
             # Solar irradiance (DNI - Direct Normal Irradiance)
-            # Note: WeatherAPI may not provide DNI directly, using UV index as proxy
-            # In production, use a dedicated solar API or calculate from cloud cover
-            "solar_irradiance": current.get("uv", 0.0) * 100,  # Scaled UV index
+            "solar_irradiance": round(solar_irradiance, 2),
             
             # Time-based features generated in backend
             "hour_of_day": now.hour,
+            "minute_of_hour": now.minute,
+            "second_of_minute": now.second,
             "day_of_week": now.weekday(),  # 0=Monday, 6=Sunday
             
             # Additional metadata

@@ -124,7 +124,7 @@ def predict():
                 "humidity": weather_data.get("humidity"),
                 "pressure": weather_data.get("atmospheric_pressure"),
                 "solar_radiance": weather_data.get("solar_irradiance"),
-                "cloud_cover": 50,  # Default if not available
+                "cloud_cover": weather_data.get("cloud", 0),
             }
         }
         

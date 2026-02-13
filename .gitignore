@@ -5,10 +5,13 @@ package-lock.json
 # Build output
 dist/
 build/
-
-# Environment
+*.pyc
+__pycache__/
 .env
 .env.local
+.venv
+venv/
+env/
 
 # IDE
 .vscode/
@@ -22,3 +25,8 @@ Thumbs.db
 
 # Logs
 *.log
+
+# Backend specific
+backend/__pycache__/
+backend/venv/
+backend/.env

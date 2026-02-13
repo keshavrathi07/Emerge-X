@@ -84,9 +84,9 @@ function InputView({ city, setCity, onPredict, loading, weatherData }) {
                     <div className="glass-card p-4">
                         <span className="text-2xl block mb-1">💨</span>
                         <span className="text-xl font-bold block">
-                            {weatherData ? `${weatherData.wind_speed} m/s` : '--'}
+                            {weatherData ? `${weatherData.wind_speed} kph` : '--'}
                         </span>
-                        <span className="text-xs text-gray-400">Wind Speed</span>
+                        <span className="text-xs text-gray-400">Wind Speed (kph)</span>
                     </div>
 
                     {/* Humidity */}
@@ -107,13 +107,13 @@ function InputView({ city, setCity, onPredict, loading, weatherData }) {
                         <span className="text-xs text-gray-400">Pressure</span>
                     </div>
 
-                    {/* Solar Radiance */}
+                    {/* Solar Irradiance */}
                     <div className="glass-card p-4">
                         <span className="text-2xl block mb-1">🌞</span>
                         <span className="text-xl font-bold block">
                             {weatherData?.solar_radiance ? `${weatherData.solar_radiance} W/m²` : '--'}
                         </span>
-                        <span className="text-xs text-gray-400">Solar Radiance</span>
+                        <span className="text-xs text-gray-400">Solar Irradiance</span>
                     </div>
                 </div>
                 <div className="mt-4 flex items-center gap-2 text-xs text-green-400">

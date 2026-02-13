@@ -122,8 +122,10 @@ function App() {
     return (
         <div className="min-h-screen bg-black/80 text-white font-sans selection:bg-emerald-500/30">
             {/* Main Content Area */}
-            <main className="relative min-h-screen">
-                {renderView()}
+            <main className="relative min-h-screen px-4 pt-6">
+                <div key={currentView} className="view-transition">
+                    {renderView()}
+                </div>
             </main>
 
             {/* Navigation */}

@@ -1,25 +1,20 @@
 import React from 'react'
 
-/**
- * Header Component
- * Dashboard title and timestamp
- */
 function Header() {
-    const currentTime = new Date().toLocaleString('en-US', {
-        dateStyle: 'medium',
-        timeStyle: 'short'
+    const currentTime = new Date().toLocaleTimeString('en-US', {
+        hour: '2-digit',
+        minute: '2-digit',
+        hour12: true
     })
 
     return (
-        <div className="mb-8">
-            <h1 className="text-4xl font-bold text-white mb-2">
-                ⚡ AI-Powered Rural Microgrid Dashboard
-            </h1>
-            <p className="text-gray-300 flex items-center gap-2">
-                <span>🕐</span>
-                <span>Last updated: {currentTime}</span>
-            </p>
-        </div>
+        <header className="flex items-center justify-between mb-8">
+            <div>
+                <h1 className="text-3xl font-extrabold bg-gradient-to-r from-emerald-400 to-cyan-400 bg-clip-text text-transparent">
+                    EMERGE-X
+                </h1>
+            </div>
+        </header>
     )
 }
 

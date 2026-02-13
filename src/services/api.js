@@ -31,10 +31,6 @@ export const fetchPrediction = async (city) => {
         predicted_wind: data.energy_flow.wind_power_output_kw,
         solar_used: data.energy_flow.solar_pv_output_kw, // Assumed full utilization or need calculation
         wind_used: data.energy_flow.wind_power_output_kw, // Assumed full utilization
-        battery_charged: data.energy_flow.battery_charge_kw,
-        battery_discharged: data.energy_flow.battery_discharge_kw,
-        battery_soc_kwh: data.energy_flow.battery_soc_kw,
-        battery_soc_percent: (data.energy_flow.battery_soc_kw / 500) * 100, // Assuming 500kWh capacity if not provided
         grid_import: data.energy_flow.grid_import_kw,
         grid_export: data.energy_flow.grid_export_kw
       }
@@ -47,26 +43,11 @@ export const fetchPrediction = async (city) => {
       throw new Error('Backend server is unavailable. Please ensure Flask app is running.')
     }
     if (error.response) {
-      throw new Error(error.response.data.error || 'Server error occurred')
+      // Prioritize the detailed message from the backend
+      const errorMessage = error.response.data.message || error.response.data.error || 'Server error occurred'
+      throw new Error(errorMessage)
     }
     throw new Error(error.message || 'Failed to fetch data')
-  }
-}
-
-/**
- * Fetch current battery status
- * @returns {Promise<Object>} - Battery status data
- */
-export const fetchBatteryStatus = async () => {
-  try {
-    const response = await api.get('/battery/status')
-    return response.data
-  } catch (error) {
-    if (error.code === 'ERR_NETWORK') {
-      console.warn('Backend server unavailable for battery status')
-      return { charge_percentage: 50 } // Fallback
-    }
-    return { charge_percentage: 50 } // Fallback
   }
 }
 

@@ -16,6 +16,7 @@ class PredictionService:
         self.grid_load_model = None
         self.solar_model = None
         self.wind_model = None
+        # Configuration for scaling (if any needed in future)
         self.load_models()
     
     def load_models(self):
@@ -103,15 +104,11 @@ class PredictionService:
             features = self.prepare_features(weather_data, "load")
             prediction = self.grid_load_model.predict(features)
             raw_value = float(prediction[0])
-            
-            # Cap at realistic maximum for a rural microgrid (500 kW)
-            # Ensure non-negative
-            capped_value = max(0.0, min(raw_value, 500.0))
-            
-            if raw_value > 500.0:
-                print(f"[WARNING] Load prediction capped: {raw_value:.2f} kW -> {capped_value:.2f} kW")
-            
-            return capped_value
+        
+        # Return raw model prediction
+        final_value = max(0.0, raw_value)
+        
+        return final_value
         except Exception as e:
             raise Exception(f"Load prediction failed: {str(e)}")
     
@@ -129,19 +126,11 @@ class PredictionService:
             features = self.prepare_features(weather_data, "solar")
             prediction = self.solar_model.predict(features)
             raw_value = float(prediction[0])
-            
-            # Cap at realistic maximum for solar panels (200 kW capacity)
-            # Solar generation at night should be 0
-            hour = weather_data.get("hour_of_day", 0)
-            if hour < 6 or hour > 18:
-                return 0.0
-            
-            capped_value = max(0.0, min(raw_value, 200.0))
-            
-            if raw_value > 200.0:
-                print(f"[WARNING] Solar prediction capped: {raw_value:.2f} kW -> {capped_value:.2f} kW")
-            
-            return capped_value
+        
+        # Return raw model prediction
+        final_solar = max(0.0, raw_value)
+        
+        return final_solar
         except Exception as e:
             raise Exception(f"Solar prediction failed: {str(e)}")
     
@@ -156,18 +145,15 @@ class PredictionService:
             float: Predicted wind generation in kW (capped at realistic maximum)
         """
         try:
+            # Use ML Model directly (removing physics-based calculation)
             features = self.prepare_features(weather_data, "wind")
             prediction = self.wind_model.predict(features)
             raw_value = float(prediction[0])
             
-            # Cap at realistic maximum for wind turbines (300 kW capacity)
             # Ensure non-negative
-            capped_value = max(0.0, min(raw_value, 300.0))
+            final_prediction = max(0.0, raw_value)
             
-            if raw_value > 300.0:
-                print(f"[WARNING] Wind prediction capped: {raw_value:.2f} kW -> {capped_value:.2f} kW")
-            
-            return capped_value
+            return final_prediction
         except Exception as e:
             raise Exception(f"Wind prediction failed: {str(e)}")
     

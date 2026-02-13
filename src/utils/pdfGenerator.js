@@ -61,7 +61,7 @@ export const generatePDFReport = (predictionData, weatherData, city) => {
     yPosition += 2
     if (weatherData) {
         addKeyValue('Temperature', `${weatherData.temperature || '--'}°C`)
-        addKeyValue('Wind Speed', `${weatherData.wind_speed || '--'} m/s`)
+        addKeyValue('Wind Speed', `${weatherData.wind_speed || '--'} kph`)
         addKeyValue('Humidity', `${weatherData.humidity || '--'}%`)
         addKeyValue('Cloud Cover', `${weatherData.cloud_cover || '--'}%`)
     } else {
@@ -107,7 +107,12 @@ export const generatePDFReport = (predictionData, weatherData, city) => {
     const balanceStatus = netBalance >= 0 ? 'SURPLUS' : 'DEFICIT'
     const balanceColor = netBalance >= 0 ? [16, 185, 129] : [239, 68, 68]
 
+    const systemEfficiency = predictionData.predicted_load > 0
+        ? (((predictionData.solar_used + predictionData.wind_used) / predictionData.predicted_load) * 100).toFixed(1)
+        : '0.0'
+
     addKeyValue('Renewable Coverage', `${renewablePercentage}%`)
+    addKeyValue('System Efficiency', `${systemEfficiency}%`)
     addKeyValue('Net Balance', `${Math.abs(netBalance).toFixed(2)} kW ${balanceStatus}`)
 
     // Status box
