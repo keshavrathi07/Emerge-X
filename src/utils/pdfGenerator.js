@@ -60,10 +60,10 @@ export const generatePDFReport = (predictionData, weatherData, city) => {
     addText('Weather Conditions', 14, 'bold')
     yPosition += 2
     if (weatherData) {
-        addKeyValue('Temperature', `${weatherData.temperature || '--'}°C`)
-        addKeyValue('Wind Speed', `${weatherData.wind_speed || '--'} kph`)
-        addKeyValue('Humidity', `${weatherData.humidity || '--'}%`)
-        addKeyValue('Cloud Cover', `${weatherData.cloud_cover || '--'}%`)
+        addKeyValue('Temperature', `${(weatherData.temperature ?? '--')}°C`)
+        addKeyValue('Wind Speed', `${(weatherData.wind_speed ?? '--')} kph`)
+        addKeyValue('Humidity', `${(weatherData.humidity ?? '--')}%`)
+        addKeyValue('Cloud Cover', `${(weatherData.cloud_cover ?? '--')}%`)
     } else {
         addText('Weather data not available', 11, 'italic')
     }

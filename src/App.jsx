@@ -45,8 +45,8 @@ function App() {
             }
         }
 
-        // Refresh immediately when city is set, then every 30 seconds
-        const intervalId = setInterval(refreshPredictions, 30000)
+        // Refresh immediately when city is set, then every 10 seconds
+        const intervalId = setInterval(refreshPredictions, 10000)
 
         return () => clearInterval(intervalId)
     }, [savedCity])

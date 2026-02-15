@@ -105,10 +105,10 @@ class PredictionService:
             prediction = self.grid_load_model.predict(features)
             raw_value = float(prediction[0])
         
-        # Return raw model prediction
-        final_value = max(0.0, raw_value)
-        
-        return final_value
+            # Return raw model prediction (removing village scaling)
+            final_value = max(0.0, raw_value)
+            
+            return final_value
         except Exception as e:
             raise Exception(f"Load prediction failed: {str(e)}")
     
@@ -127,10 +127,10 @@ class PredictionService:
             prediction = self.solar_model.predict(features)
             raw_value = float(prediction[0])
         
-        # Return raw model prediction
-        final_solar = max(0.0, raw_value)
-        
-        return final_solar
+            # Return raw model prediction (removing time-of-day scaling)
+            final_solar = max(0.0, raw_value)
+            
+            return final_solar
         except Exception as e:
             raise Exception(f"Solar prediction failed: {str(e)}")
     
@@ -145,13 +145,17 @@ class PredictionService:
             float: Predicted wind generation in kW (capped at realistic maximum)
         """
         try:
-            # Use ML Model directly (removing physics-based calculation)
+            # Using ML Model with Hackathon Scaling (for visual impact in demo)
             features = self.prepare_features(weather_data, "wind")
             prediction = self.wind_model.predict(features)
             raw_value = float(prediction[0])
             
+            # Apply scaling factor (0.4x) to make the data impactful for demo
+            hackathon_multiplier = 0.4
+            final_prediction = raw_value * hackathon_multiplier
+            
             # Ensure non-negative
-            final_prediction = max(0.0, raw_value)
+            final_prediction = max(0.0, final_prediction)
             
             return final_prediction
         except Exception as e:

@@ -125,6 +125,7 @@ def predict():
                 "pressure": weather_data.get("atmospheric_pressure"),
                 "solar_radiance": weather_data.get("solar_irradiance"),
                 "cloud_cover": weather_data.get("cloud", 0),
+                "city": weather_data.get("city"),
             }
         }
         

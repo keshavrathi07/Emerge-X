@@ -10,7 +10,7 @@ function PredictionsView({ predictionData, historicalData }) {
                 <div className="flex items-center justify-between mb-4">
                     <div>
                         <h2 className="text-2xl font-bold">Model Predictions</h2>
-                        <p className="text-gray-400 text-sm">Auto-refreshing every 30 seconds</p>
+                        <p className="text-gray-400 text-sm">Auto-refreshing every 10 seconds</p>
                     </div>
                     <div className="flex items-center gap-2">
                         <div className="bg-emerald-500/20 text-emerald-400 px-3 py-1 rounded-full text-xs font-bold border border-emerald-500/50 flex items-center gap-1">

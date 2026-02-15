@@ -59,22 +59,22 @@ function StatisticsView({ predictionData, weatherData }) {
                     <div className="grid grid-cols-4 gap-4 text-center divide-x divide-white/10">
                         <div>
                             <span className="block text-2xl mb-1">🌡️</span>
-                            <span className="text-xl font-bold block">{weatherData?.temperature || '--'}°C</span>
+                            <span className="text-xl font-bold block">{(weatherData?.temperature ?? '--')}°C</span>
                             <span className="text-xs text-gray-500">Temperature</span>
                         </div>
                         <div>
                             <span className="block text-2xl mb-1">💨</span>
-                            <span className="text-xl font-bold block">{weatherData?.wind_speed || '--'} kph</span>
+                            <span className="text-xl font-bold block">{(weatherData?.wind_speed ?? '--')} kph</span>
                             <span className="text-xs text-gray-500">Wind Speed (kph)</span>
                         </div>
                         <div>
                             <span className="block text-2xl mb-1">💧</span>
-                            <span className="text-xl font-bold block">{weatherData?.humidity || '--'}%</span>
+                            <span className="text-xl font-bold block">{(weatherData?.humidity ?? '--')}%</span>
                             <span className="text-xs text-gray-500">Humidity</span>
                         </div>
                         <div>
                             <span className="block text-2xl mb-1">☁️</span>
-                            <span className="text-xl font-bold block">{weatherData?.cloud_cover || '--'}%</span>
+                            <span className="text-xl font-bold block">{(weatherData?.cloud_cover ?? '--')}%</span>
                             <span className="text-xs text-gray-500">Cloud Cover</span>
                         </div>
                     </div>

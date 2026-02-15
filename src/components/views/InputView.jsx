@@ -75,7 +75,7 @@ function InputView({ city, setCity, onPredict, loading, weatherData }) {
                     <div className="glass-card p-4">
                         <span className="text-2xl block mb-1">☀️</span>
                         <span className="text-xl font-bold block">
-                            {weatherData ? `${weatherData.temperature}°C` : '--'}
+                            {weatherData?.temperature !== undefined ? `${weatherData.temperature}°C` : '--'}
                         </span>
                         <span className="text-xs text-gray-400">Temperature</span>
                     </div>
@@ -84,7 +84,7 @@ function InputView({ city, setCity, onPredict, loading, weatherData }) {
                     <div className="glass-card p-4">
                         <span className="text-2xl block mb-1">💨</span>
                         <span className="text-xl font-bold block">
-                            {weatherData ? `${weatherData.wind_speed} kph` : '--'}
+                            {weatherData?.wind_speed !== undefined ? `${weatherData.wind_speed} kph` : '--'}
                         </span>
                         <span className="text-xs text-gray-400">Wind Speed (kph)</span>
                     </div>
@@ -93,7 +93,7 @@ function InputView({ city, setCity, onPredict, loading, weatherData }) {
                     <div className="glass-card p-4">
                         <span className="text-2xl block mb-1">☁️</span>
                         <span className="text-xl font-bold block">
-                            {weatherData ? `${weatherData.humidity}%` : '--'}
+                            {weatherData?.humidity !== undefined ? `${weatherData.humidity}%` : '--'}
                         </span>
                         <span className="text-xs text-gray-400">Humidity</span>
                     </div>
@@ -102,7 +102,7 @@ function InputView({ city, setCity, onPredict, loading, weatherData }) {
                     <div className="glass-card p-4">
                         <span className="text-2xl block mb-1">🌡️</span>
                         <span className="text-xl font-bold block">
-                            {weatherData?.pressure ? `${weatherData.pressure} hPa` : '--'}
+                            {weatherData?.pressure !== undefined ? `${weatherData.pressure} hPa` : '--'}
                         </span>
                         <span className="text-xs text-gray-400">Pressure</span>
                     </div>
@@ -111,7 +111,7 @@ function InputView({ city, setCity, onPredict, loading, weatherData }) {
                     <div className="glass-card p-4">
                         <span className="text-2xl block mb-1">🌞</span>
                         <span className="text-xl font-bold block">
-                            {weatherData?.solar_radiance ? `${weatherData.solar_radiance} W/m²` : '--'}
+                            {weatherData?.solar_radiance !== undefined ? `${weatherData.solar_radiance} W/m²` : '--'}
                         </span>
                         <span className="text-xs text-gray-400">Solar Irradiance</span>
                     </div>
